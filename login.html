@@ -1,0 +1,42 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | SubstiBot</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="login-page">
+  <main class="login-card">
+    <div class="login-logo">S</div>
+    <h1>Welcome Back!</h1>
+    <p class="muted">Sign in to your SubstiBot dashboard</p>
+
+    <form id="loginForm">
+      <label for="username">Username</label>
+      <input class="field" id="username" name="username"
+             placeholder="Enter username" autocomplete="username" required>
+
+      <label for="password">Password</label>
+      <input class="field" id="password" name="password" type="password"
+             placeholder="Enter password" autocomplete="current-password" required>
+
+      <p id="loginError" class="login-error" role="alert"></p>
+      <button class="btn btn-primary login-button" type="submit">
+        Login to Dashboard →
+      </button>
+    </form>
+
+    <div class="demo-credentials">
+      <b>Demo Login Details</b>
+      <p>Username: <strong>admin</strong></p>
+      <p>Password: <strong>SubstiBot@123</strong></p>
+    </div>
+
+    <p class="login-footer">SubstiBot · Faculty Substitution System</p>
+  </main>
+</body>
+</html>
+```

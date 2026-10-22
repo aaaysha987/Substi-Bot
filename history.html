@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>History & Reports | SubstiBot</title><link rel="stylesheet" href="style.css"><script src="script.js" defer></script></head>
+<body><div class="app">
+<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-icon">S</span><span>SubstiBot<small>SMART SUBSTITUTION</small></span></a><p class="nav-label">WORKSPACE</p><nav>
+<a class="nav-link" href="index.html">▦ <span>Overview</span></a><a class="nav-link" href="attendance.html">◷ <span>Faculty Attendance</span></a><a class="nav-link" href="timetable.html">▦ <span>Timetable</span></a><a class="nav-link" href="substitution.html">⇄ <span>Substitution</span></a><a class="nav-link" href="approvals.html">✓ <span>HOD Approval</span></a><a class="nav-link active" href="history.html">▤ <span>History & Reports</span></a>
+</nav><div class="sidebar-bottom"><div class="avatar">AD</div><div><b>Admin User</b><small>Department Admin</small></div></div></aside>
+<main class="main">
+<header class="topbar"><div><p class="eyebrow">ANALYTICS & RECORDS</p><h1>History & Reports</h1><p class="muted">Review the sample substitution activity and export a report.</p></div><span class="date" id="todayDate"></span></header>
+<section class="stats">
+<article class="stat-card"><div class="stat-top"><span>Total Requests</span><span class="stat-icon blue">▤</span></div><strong id="historyTotal">3</strong><small class="muted">Requests in demo</small></article>
+<article class="stat-card"><div class="stat-top"><span>Approved</span><span class="stat-icon green">✓</span></div><strong id="historyApproved">1</strong><small class="muted">Confirmed</small></article>
+<article class="stat-card"><div class="stat-top"><span>Pending</span><span class="stat-icon orange">◷</span></div><strong id="historyPending">2</strong><small class="muted">Awaiting decision</small></article>
+<article class="stat-card"><div class="stat-top"><span>Rejected</span><span class="stat-icon purple">×</span></div><strong id="historyRejected">0</strong><small class="muted">Declined requests</small></article>
+</section>
+<section class="content-grid section-gap">
+<article class="panel"><h3>Request Status Overview</h3><p class="muted">Sample requests by current status</p><div class="report-row"><span>Approved</span><div class="progress"><span id="approvedBar" style="width:33%"></span></div><b id="approvedPercent">33%</b></div><div class="report-row"><span>Pending</span><div class="progress"><span id="pendingBar" style="width:67%;background:#e9a23b"></span></div><b id="pendingPercent">67%</b></div><div class="report-row"><span>Rejected</span><div class="progress"><span id="rejectedBar" style="width:0%;background:#dc6262"></span></div><b id="rejectedPercent">0%</b></div></article>
+<article class="panel"><h3>Export Report</h3><p class="muted">Download the currently displayed sample request list as a CSV file.</p><button class="btn btn-primary" id="exportReport">↓ Download CSV Report</button><p class="small-note muted">CSV can be opened in Excel. Only browser demo data is included.</p></article>
+</section>
+<section class="panel section-gap"><div class="panel-heading"><div><h3>Substitution Activity</h3><p class="muted">Sample request records and decisions</p></div><select id="historyFilter" class="field"><option value="all">All statuses</option><option>Pending</option><option>Approved</option><option>Rejected</option></select></div>
+<div class="table-wrap"><table><thead><tr><th>Absent Faculty</th><th>Class / Subject</th><th>Substitute</th><th>Period</th><th>Status</th></tr></thead><tbody id="historyBody">
+<tr><td>Mr. Arun Raj</td><td>CSE II / Java</td><td>Dr. Priya Kumar</td><td>Period 2</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Mr. Karthik M</td><td>IT III / Networks</td><td>Ms. Divya S</td><td>Period 3</td><td><span class="status approved">Approved</span></td></tr>
+<tr><td>Ms. Nisha R</td><td>AI & DS II / Python</td><td>Mr. Bala K</td><td>Period 1</td><td><span class="status pending">Pending</span></td></tr>
+</tbody></table></div></section>
+<footer>© 2026 SubstiBot · Frontend Demonstration Prototype</footer>
+</main></div></body></html>

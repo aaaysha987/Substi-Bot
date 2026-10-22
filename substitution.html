@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Substitution Planner | SubstiBot</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+
+  <style>
+    .planner-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(250px, 0.8fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .planner-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .planner-form-grid label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .planner-form-grid select {
+      display: block;
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px;
+      border: 1px solid #dce2ec;
+      border-radius: 9px;
+      background: #fff;
+      font: inherit;
+    }
+
+    .planner-button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 13px;
+      cursor: pointer;
+    }
+
+    .planner-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 22px 0;
+    }
+
+    .planner-stat,
+    .planner-panel,
+    .candidate-card {
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #e6eaf1;
+      border-radius: 14px;
+    }
+
+    .planner-stat p {
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    .planner-stat h2 {
+      margin: 12px 0 5px;
+      font-size: 27px;
+    }
+
+    .planner-muted {
+      color: #70798a;
+      font-size: 13px;
+    }
+
+    .planner-workflow {
+      padding-left: 22px;
+    }
+
+    .planner-workflow li {
+      padding: 0 0 18px 6px;
+    }
+
+    .planner-workflow li strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .candidate-card {
+      margin-top: 14px;
+      background: #f9fbff;
+    }
+
+    .candidate-card h4 {
+      margin: 0 0 8px;
+    }
+
+    .candidate-card p {
+      font-size: 13px;
+      color: #5d6678;
+      margin: 6px 0;
+    }
+
+    .candidate-card button {
+      margin-top: 12px;
+      cursor: pointer;
+    }
+
+    .planner-message {
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 9px;
+      background: #eef4ff;
+      color: #244bb5;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .planner-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .planner-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 500px) {
+      .planner-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-logo">S</div>
+        <div>
+          <h2>SubstiBot</h2>
+          <p>Smart Substitution</p>
+        </div>
+      </div>
+
+      <p class="sidebar-label">MAIN MENU</p>
+
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-link">
+          <span>▦</span> Dashboard
+        </a>
+        <a href="attendance.html" class="nav-link">
+          <span>✓</span> Faculty Attendance
+        </a>
+        <a href="timetable.html" class="nav-link">
+          <span>▤</span> Timetable
+        </a>
+        <a href="substitution.html" class="nav-link active">
+          <span>⇄</span> Substitution Planner
+        </a>
+        <a href="approval.html" class="nav-link">
+          <span>☑</span> HOD Approval
+        </a>
+        <a href="history.html" class="nav-link">
+          <span>◷</span> History & Reports
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <p>SubstiBot Prototype</p>
+        <button type="button" id="logoutButton" class="nav-link">
+          ↪ Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <header class="topbar">
+        <div>
+          <p class="planner-muted">COVERAGE PLANNING</p>
+          <h1>Substitution Planner</h1>
+          <p class="planner-muted">
+            Automatically find a suitable faculty member for an affected class.
+          </p>
+        </div>
+        <div id="todayDate" class="planner-muted"></div>
+      </header>
+
+      <!-- SUMMARY CARDS -->
+      <section class="planner-stats">
+        <div class="planner-stat">
+          <p>Total Requests</p>
+          <h2 id="requestCount">3</h2>
+          <span class="planner-muted">Substitution requests</span>
+        </div>
+
+        <div class="planner-stat">
+          <p>Pending</p>
+          <h2 id="subPending">2</h2>
+          <span class="planner-muted">Awaiting HOD approval</span>
+        </div>
+
+        <div class="planner-stat">
+          <p>Approved</p>
+          <h2 id="subApproved">1</h2>
+          <span class="planner-muted">Approved requests</span>
+        </div>
+
+        <div class="planner-stat">
+          <p>Clash Check</p>
+          <h2 style="font-size:20px">Required</h2>
+          <span class="planner-muted">Before final approval</span>
+        </div>
+      </section>
+
+      <section class="planner-layout">
+
+        <!-- SUBSTITUTION FORM AND AI RESULTS -->
+        <div class="planner-panel">
+          <h2>Create Substitution</h2>
+          <p class="planner-muted">
+            Select the absent faculty and affected class details.
+            SubstiBot will rank eligible substitutes.
+          </p>
+
+          <form id="substitutionForm">
+            <div class="planner-form-grid">
+
+              <label for="absent">
+                Absent Faculty
+                <select id="absent" name="absent" required>
+                  <option value="">Select faculty</option>
+                  <option>Mr. Arun Raj</option>
+                  <option>Mr. Karthik M</option>
+                  <option>Ms. Nisha R</option>
+                  <option>Dr. Priya Kumar</option>
+                  <option>Ms. Divya S</option>
+                  <option>Mr. Bala K</option>
+                  <option>Ms. Meena R</option>
+                </select>
+              </label>
+
+              <label for="className">
+                Class / Section
+                <select id="className" name="className" required>
+                  <option value="">Select class</option>
+                  <option>CSE II</option>
+                  <option>IT III</option>
+                  <option>AI &amp; DS II</option>
+                </select>
+              </label>
+
+              <label for="subject">
+                Subject
+                <select id="subject" name="subject" required>
+                  <option value="">Select subject</option>
+                  <option>Java</option>
+                  <option>Python</option>
+                  <option>Networks</option>
+                </select>
+              </label>
+
+              <label for="period">
+                Period
+                <select id="period" name="period" required>
+                  <option value="">Select period</option>
+                  <option>Period 1</option>
+                  <option>Period 2</option>
+                  <option>Period 3</option>
+                  <option>Period 4</option>
+                </select>
+              </label>
+
+            </div>
+
+            <p class="planner-muted" style="margin-top:18px">
+              The recommendation uses sample subject, availability,
+              class eligibility, workload and timetable data.
+            </p>
+
+            <button class="btn btn-primary planner-button" type="submit">
+              Find Best Substitute
+            </button>
+          </form>
+
+          <!-- AUTOMATIC RECOMMENDATIONS -->
+          <section id="aiResult" hidden style="margin-top:26px">
+            <h2>Substitution Recommendations</h2>
+            <p id="aiMessage" class="planner-message" role="status"></p>
+            <div id="candidateList"></div>
+          </section>
+        </div>
+
+        <!-- WORKFLOW -->
+        <aside class="planner-panel">
+          <h3>Suggested Workflow</h3>
+          <p class="planner-muted">
+            Follow these steps before confirming a substitution.
+          </p>
+
+          <ol class="planner-workflow">
+            <li>
+              <strong>Identify absence</strong>
+              <span class="planner-muted">Select the absent faculty member.</span>
+            </li>
+            <li>
+              <strong>Check timetable</strong>
+              <span class="planner-muted">Identify the affected class and period.</span>
+            </li>
+            <li>
+              <strong>Rank substitutes</strong>
+              <span class="planner-muted">Check subject suitability, availability and workload.</span>
+            </li>
+            <li>
+              <strong>Send to HOD</strong>
+              <span class="planner-muted">The HOD reviews the recommendation.</span>
+            </li>
+          </ol>
+
+          <div class="planner-message">
+            <strong>Prototype notice</strong>
+            <p>
+              Recommendations use sample data. Verify actual availability
+              and timetable clashes before approving.
+            </p>
+          </div>
+        </aside>
+
+      </section>
+
+      <!-- REQUEST TABLE -->
+      <section class="planner-panel" style="margin-top:22px">
+        <h2>Recent Substitution Requests</h2>
+        <p class="planner-muted">
+          Review the current demo requests and their approval status.
+        </p>
+
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Absent Faculty</th>
+                <th>Class / Subject</th>
+                <th>Suggested Substitute</th>
+                <th>Period</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="substitutionBody">
+              <tr>
+                <td colspan="5">Loading requests...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer style="padding:24px 0" class="planner-muted">
+        SubstiBot · Smart Faculty Absence &amp; Class Substitution Agent
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- Logout support -->
+  <script>
+    document.getElementById("logoutButton")?.addEventListener("click", () => {
+      sessionStorage.removeItem("substiBotLoggedIn");
+      location.href = "login.html";
+    });
+  </script>
+</body>
+</html>

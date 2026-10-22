@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>HOD Approval | SubstiBot</title><link rel="stylesheet" href="style.css"><script src="script.js" defer></script></head>
+<body><div class="app">
+<aside class="sidebar"><a class="brand" href="index.html"><span class="brand-icon">S</span><span>SubstiBot<small>SMART SUBSTITUTION</small></span></a><p class="nav-label">WORKSPACE</p><nav>
+<a class="nav-link" href="index.html">▦ <span>Overview</span></a><a class="nav-link" href="attendance.html">◷ <span>Faculty Attendance</span></a><a class="nav-link" href="timetable.html">▦ <span>Timetable</span></a><a class="nav-link" href="substitution.html">⇄ <span>Substitution</span></a><a class="nav-link active" href="approvals.html">✓ <span>HOD Approval</span></a><a class="nav-link" href="history.html">▤ <span>History & Reports</span></a>
+</nav><div class="sidebar-bottom"><div class="avatar">AD</div><div><b>Admin User</b><small>Department Admin</small></div></div></aside>
+<main class="main">
+<header class="topbar"><div><p class="eyebrow">REQUEST REVIEW</p><h1>HOD Approval Centre</h1><p class="muted">Review substitution requests before confirming coverage.</p></div><span class="date" id="todayDate"></span></header>
+<section class="stats">
+<article class="stat-card"><div class="stat-top"><span>Total Requests</span><span class="stat-icon blue">▤</span></div><strong id="approvalTotal">3</strong><small class="muted">All listed requests</small></article>
+<article class="stat-card"><div class="stat-top"><span>Awaiting Review</span><span class="stat-icon orange">◷</span></div><strong id="approvalPending">2</strong><small class="muted">Needs HOD decision</small></article>
+<article class="stat-card"><div class="stat-top"><span>Approved</span><span class="stat-icon green">✓</span></div><strong id="approvalApproved">1</strong><small class="muted">Approved in demo</small></article>
+<article class="stat-card"><div class="stat-top"><span>Rejected</span><span class="stat-icon purple">×</span></div><strong id="approvalRejected">0</strong><small class="muted">Rejected in demo</small></article>
+</section>
+<section class="panel section-gap"><div class="panel-heading"><div><h3>Requests for Review</h3><p class="muted">Approve or reject each pending request.</p></div><select class="field" id="approvalFilter"><option value="all">All statuses</option><option>Pending</option><option>Approved</option><option>Rejected</option></select></div>
+<div class="table-wrap"><table><thead><tr><th>Absent Faculty</th><th>Class / Subject</th><th>Suggested Substitute</th><th>Period</th><th>Status</th><th>Action</th></tr></thead><tbody id="approvalBody">
+<tr><td>Mr. Arun Raj</td><td>CSE II / Java</td><td>Dr. Priya Kumar</td><td>Period 2</td><td><span class="status pending">Pending</span></td><td><button class="btn btn-small btn-primary" data-decision="Approved">Approve</button> <button class="btn btn-small btn-danger" data-decision="Rejected">Reject</button></td></tr>
+<tr><td>Mr. Karthik M</td><td>IT III / Networks</td><td>Ms. Divya S</td><td>Period 3</td><td><span class="status approved">Approved</span></td><td><span class="muted">Reviewed</span></td></tr>
+<tr><td>Ms. Nisha R</td><td>AI & DS II / Python</td><td>Mr. Bala K</td><td>Period 1</td><td><span class="status pending">Pending</span></td><td><button class="btn btn-small btn-primary" data-decision="Approved">Approve</button> <button class="btn btn-small btn-danger" data-decision="Rejected">Reject</button></td></tr>
+</tbody></table></div><p class="muted small-note">Demo approval only. This does not send notifications or update a real college timetable.</p></section>
+<footer>© 2026 SubstiBot · Frontend Demonstration Prototype</footer>
+</main></div></body></html>
